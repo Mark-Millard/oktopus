@@ -1,6 +1,9 @@
 name: Close Stale Issues
 
 on:
+  push:
+    branches-ignore:
+      - 'auteur-dev'
   schedule:
     # Run daily at midnight UTC
     - cron: '0 0 * * *'
