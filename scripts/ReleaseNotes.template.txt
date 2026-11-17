@@ -1,0 +1,28 @@
+Oktopus release @VERSION@  (@VERSION_DATE@)
+==========================================
+
+Contents
+  oktopus-images_amd64_*.tar   Docker images for Intel/AMD 64-bit machines
+  oktopus-images_arm64_*.tar   Docker images for ARM 64-bit machines
+  images.list                  image names as saved / as used by the compose file
+  docker-compose-release.yaml  compose file for this release (images tagged @VERSION@)
+  .env.*                       per-service configuration (edit before starting)
+  nats_config/                 NATS configuration and TLS certificates
+  nginx.conf                   edge routing configuration
+  install-release.sh           installer
+
+Install (Docker and the Docker Compose plugin are required, no Internet needed)
+  tar -xzf oktopus_@VERSION_DATE@.tar.gz
+  cd @VERSION_DATE@
+  ./install-release.sh          # load the images for this machine's CPU
+  ./install-release.sh -r       # ... and start Oktopus
+  ./install-release.sh -s       # stop and remove the containers
+
+Default services started with -r: NATS, controller, MongoDB, MQTT, WebSockets,
+STOMP and their adapters, CWMP (ACS), socketio, frontend, nginx, file-server.
+Use --profiles to choose others (see ./install-release.sh -h).
+
+Notes
+  - The NATS credentials, certificates and other secrets in this package are the
+    project defaults. Replace them before exposing the system to a network.
+  - Data is kept in ./mongo_data, ./nats_data, ./firmwares and ./images.
